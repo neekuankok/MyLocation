@@ -1,6 +1,7 @@
 package com.example.hexa_neekuankok.mylocation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+
 //        ((App)getApplication()).getAppComponent().passIn(this);
         myLocationInstanceState = new LocationInstanceState();
         //myLocation = new MyLocation1();
@@ -112,9 +115,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //            tvLatitude.setText(savedInstanceState.getString(LATITUDE_MSG));
 //            tvLongitude.setText(savedInstanceState.getString(LONGITUDE_MSG));
 //            tv_availability.setText(savedInstanceState.getString(LOCATION_AVAILABILITY));
-            tvLatitude.setText(myLocation.getStrLatitude());
-            tvLongitude.setText(myLocation.getStrLongitude());
-            tv_availability.setText(myLocation.getStrLocationAvailability());
+            if(intent.getStringExtra("parentActivity") == null){ //restore from background
+                tvLatitude.setText(myLocation.getStrLatitude());
+                tvLongitude.setText(myLocation.getStrLongitude());
+                tv_availability.setText(myLocation.getStrLocationAvailability());
+            }
 //        }
 
         updateButton.setOnClickListener(new View.OnClickListener() {
